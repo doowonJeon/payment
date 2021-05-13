@@ -89,18 +89,18 @@ class PaymentApplicationTests {
 				.andDo(print()).andReturn();
 		String content = result.getResponse().getContentAsString();
 		boolean before_flag = content.contains("PAYMENT");
-		
+
 		CancelPaymentRequest cancelPaymentRequest = CancelPaymentRequest.builder().id(payment.getId()).price(100L)
 				.vat(10L).build();
 
 		long requestVat = checkValid(cancelPaymentRequest, payment);
 		payment.setVat(requestVat);
 		payment.setCancel_flag(true);
-		
+
 		payment = paymentRepository.save(payment);
-		
-		result = mockMvc.perform(get("/api/payment/" + payment.getId())).andExpect(status().isOk())
-				.andDo(print()).andReturn();
+
+		result = mockMvc.perform(get("/api/payment/" + payment.getId())).andExpect(status().isOk()).andDo(print())
+				.andReturn();
 		content = result.getResponse().getContentAsString();
 		boolean after_flag = content.contains("CANCEL");
 
@@ -183,5 +183,13 @@ class PaymentApplicationTests {
 		}
 
 		return requestVat;
+	}
+
+	public static String asJsonString(final Object obj) {
+		try {
+			return new ObjectMapper().writeValueAsString(obj);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 	}
 }

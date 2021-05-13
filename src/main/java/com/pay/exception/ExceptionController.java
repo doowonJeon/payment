@@ -14,10 +14,4 @@ public class ExceptionController {
 		return ResponseEntity.badRequest().body(new ErrorResponse(e.getError(), e.getMessage(), null));
 	}
 
-	@ExceptionHandler(ApiRuntimeException.class)
-	@ResponseBody
-	protected ResponseEntity<ErrorResponse> handleApiException(ApiRuntimeException e) {
-		return ResponseEntity.badRequest().body(new ErrorResponse(e.getError(), e.getMessage(), null));
-	}
-
 }

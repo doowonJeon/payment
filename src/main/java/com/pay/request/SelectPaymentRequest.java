@@ -12,7 +12,7 @@ import lombok.Data;
 public class SelectPaymentRequest {
 	@NotNull(message = "id는 필수값 입니다.")
 	@Size(min = 20, max = 20, message = "id의 길이는 20 입니다.")
-	private String id;
+	public String id;
 
 	@Builder
 	public SelectPaymentRequest(String id) {
